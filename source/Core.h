@@ -1,6 +1,6 @@
 
-#ifndef _CORE_H_
-#define _CORE_H_
+#ifndef CORE_H
+#define CORE_H
 
 #ifndef NULL
 #define NULL 0
@@ -50,12 +50,16 @@ public:
 
 	int LoadTexture( const char* File );
 
+	void UpdateDirtyRect( SDL_Rect a_kRect );
+
 private:
 	Core();
 
 	size_t GoodTextureValue( size_t value );
 
 	static Core* m_pInstance;
+
+	SDL_Rect m_kDirtyRect;
 };
 
-#endif // _CORE_H_
+#endif // CORE_H

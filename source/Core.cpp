@@ -11,7 +11,7 @@ Core::Core()
 
 Core::~Core()
 {
-
+	OnUninit();
 }
 
 Core* Core::GetInstance()
@@ -39,7 +39,7 @@ int Core::OnInit()
 
 	int error = 0;
 
-	error = SDL_Init( SDL_INIT_VIDEO );
+	error = SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER );
 
 	// Set up GL settings.
 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
@@ -218,4 +218,31 @@ size_t Core::GoodTextureValue( size_t value )
 	}
 
 	return i;
+}
+
+void Core::UpdateDirtyRect( SDL_Rect a_kRect )
+{
+	// if supplied x is less than the current x, make the dirty x to supplied
+	if( m_kDirtyRect.x > a_kRect.x )
+	{
+		m_kDirtyRect.x = a_kRect.x;
+	}
+
+	// width
+	if( m_kDirtyRect.x + m_kDirtyRect.w < a_kRect.x + a_kRect.w )
+	{
+		float fWidth = a_kRect.x + a_kRect.w;
+	}
+
+	// if supplied y is less than the current y, make the dirty y to supplied
+	if( m_kDirtyRect.y > a_kRect.y )
+	{
+		m_kDirtyRect.y = a_kRect.y;
+	}
+
+	// height
+	if( m_kDirtyRect.y + m_kDirtyRect.h < a_kRect.y + a_kRect.h )
+	{
+		float fWidth = a_kRect.x + a_kRect.w;
+	}
 }
